@@ -51,8 +51,18 @@ public class Os_project_3_scheduling {
             int period = input.nextInt();
 
             food[i] = new Food(name, burst, deadline, period);
-
         }
+        
+        if (!isSchedulingPossible(food)) {
+            System.out.println("Can't handle orders");
+            return;
+        }
+        
+        for (int t = 0; t < 10; t++) {
+            
+        }
+        
+
     }
 
 }
