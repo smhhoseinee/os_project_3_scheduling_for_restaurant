@@ -91,9 +91,42 @@ public class Os_project_3_scheduling {
 
     }
 
-    public static void LLF(int totalRunTime, int n, Food food[]) {
-        //implement Least Laxity First algorithm here
+    public static int LLFscheduling(int foodNumber, Food food[], int currentTime) {
+        int EDFood = -1;
+        int ED = 10000;
+        for (int i = foodNumber - 1; i >= 0; i--) {
+            int lasity = food[i].getDeadLineInCurrentPeriod() - food[i].getRemainTime() - currentTime;
+//            System.out.print(" " + lasity + " ");
+            if (lasity < ED && food[i].getCurrentState() == 1) {
+                EDFood = i;
+                ED = lasity;
+            }
+        }
+        return EDFood;
+    }
 
+    public static void LLF(int totalRunTime, int n, Food food[]) {
+        int currentTime = 0, idleTime = 0;
+        while (currentTime < totalRunTime) {
+            System.out.print(currentTime + " ");
+            //set state of foods
+            for (int i = 0; i < n; i++) {
+                food[i].setState(currentTime);
+            }
+            int inputFood = LLFscheduling(n, food, currentTime);//compute earliest deadline between ready food
+            if (inputFood != -1) {// this means there is a food which is ready for making
+                System.out.println(food[inputFood].getName());
+                food[inputFood].setRemainTime(food[inputFood].getRemainTime() - 1);//reduce remain time in this period for performed food
+            } else {// this means there is no food which is ready for making in this clock
+                System.out.println("idle");
+                idleTime++;
+            }
+            currentTime++;
+        }
+        System.out.println("Idle time = " + idleTime);
+        for (int i = 0; i < n; i++) {
+            System.out.println(food[i].getName() + " waiting time = " + food[i].getwatingTime());
+        }
     }
 
     public static boolean isSchedulingPossible(Food food[]) {
