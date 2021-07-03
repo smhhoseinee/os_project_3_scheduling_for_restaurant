@@ -25,7 +25,7 @@ public class Os_project_3_scheduling {
         return lcm;
     }
 
-    public static int EDFschaduling(int foodNumber, Food food[]) {
+    public static int EDFscheduling(int foodNumber, Food food[]) {
         int EDFood = -1;
         int ED = 10000;
         for (int i = 0; i < foodNumber; i++) {
@@ -38,14 +38,14 @@ public class Os_project_3_scheduling {
     }
 
     public static void EDF(int totalRunTime, int n, Food food[]) {
-        int spentTime = 0, idleTime = 0;
-        while (spentTime < totalRunTime) {
-            System.out.print(spentTime + " ");
+        int currentTime = 0, idleTime = 0;
+        while (currentTime < totalRunTime) {
+            System.out.print(currentTime + " ");
             //set state of foods
             for (int i = 0; i < n; i++) {
-                food[i].setState(spentTime);
+                food[i].setState(currentTime);
             }
-            int inputFood = EDFschaduling(n, food);//compute earliest deadline between ready food
+            int inputFood = EDFscheduling(n, food);//compute earliest deadline between ready food
             if (inputFood != -1) {// this means there is a food which is ready for making
                 System.out.println(food[inputFood].getName());
                 food[inputFood].setRemainTime(food[inputFood].getRemainTime() - 1);//reduce remain time in this period for performed food
@@ -53,7 +53,7 @@ public class Os_project_3_scheduling {
                 System.out.println("idle");
                 idleTime++;
             }
-            spentTime++;
+            currentTime++;
         }
         System.out.println("Idle time = " + idleTime);
         for (int i = 0; i < n; i++) {
@@ -92,9 +92,7 @@ public class Os_project_3_scheduling {
         // 0 : burst time
         // 1 : deadline
         // 2 : period
-        int[][] data = new int[n][3];
-        String[] names = new String[n];
-
+        
         Food food[] = new Food[n];
         int totalRunTime = 1; // it show lowest common multiple between process's interval
 
@@ -112,6 +110,7 @@ public class Os_project_3_scheduling {
             System.out.println("Can't handle orders");
             return;
         }
+        
         System.out.println("choose an algorithm :\n1-Earliest Deadline First , 2-Rate Monotonic 3-Least Laxity First");
         int num = new Scanner(System.in).nextInt();
         if (num == 1) {
