@@ -19,18 +19,33 @@ public class RateMonotonic {
     }
 
     public void SetPriorityRateMonotonic(Food[] food) {
-        int minBurst = -1;
+        int minBurst = Integer.MAX_VALUE;
         int minBursti = -1;
         int currentPriorityToAssign = 0;
+        int counterPriorityNotSetFoods = 0;
         for (int i = 0; i < food.length; i++) {
-            if (food[i].getPriority() < 0 && food[i].getBurst() < minBurst) {
-                minBurst = food[i].getBurst();
-                minBursti = i;
+            if (food[i].getPriority() < 0) {
+                counterPriorityNotSetFoods++;
             }
         }
-        if (minBursti != -1) {
-            food[minBursti].setPriority(currentPriorityToAssign);
-            currentPriorityToAssign++;
+        while (counterPriorityNotSetFoods > 0) {
+            for (int i = 0; i < food.length; i++) {
+                if (food[i].getPriority() < 0 && food[i].getBurst() < minBurst) {
+                    minBurst = food[i].getBurst();
+                    minBursti = i;
+                }
+            }
+            if (minBursti != -1) {
+                food[minBursti].setPriority(currentPriorityToAssign);
+                currentPriorityToAssign++;
+                counterPriorityNotSetFoods--;
+                minBurst = Integer.MAX_VALUE;
+                minBursti = -1;
+                
+            }else{
+                break;
+            }
+            
         }
     }
 
@@ -38,14 +53,14 @@ public class RateMonotonic {
 
         for (int i = 0; i < food.length; i++) {
             for (Food f : food) {
-                if (f.getPriority() == i 
+                if (f.getPriority() == i
                         && f.getPriority() >= 0
                         && !f.isIsCompleted()) {
-                   return f.getId();
+                    return f.getId();
                 }
             }
         }
-        
+
         return 0;
     }
 }

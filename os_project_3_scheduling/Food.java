@@ -7,15 +7,13 @@ public class Food {
     private int utilization;
     boolean isCompleted = false;
     private int priority = -1;
-    private int id ;
+    private int id;
 
-    
-    
     private int remainedTime;
     private int currentState;
     private int watingTime;
     private int countPeriod;
-    private int sw=1;
+    private int sw = 1;
     private int deadLineInCurrentPeriod;
 
     public Food(String name, int burst, int deadline, int period) {
@@ -36,25 +34,26 @@ public class Food {
 
     public void setState(int time) {
         if (this.remainedTime == 0) {
+            setIsCompleted(true);
+
             if (time % this.period == 0) {
                 this.deadLineInCurrentPeriod = time + this.deadline;
-                sw=1;
+                sw = 1;
                 this.currentState = 1;
                 this.remainedTime = this.burst;
-                
+
                 setIsCompleted(false);
-            } else if (sw==1){
-                sw=0;
+            } else if (sw == 1) {
+                sw = 0;
                 this.currentState = 0;
                 this.countPeriod++;
-                this.watingTime += ((time-1)%this.period) + 1 - this.burst;
+                this.watingTime += ((time - 1) % this.period) + 1 - this.burst;
+
             }
         }
     }
-    
+
     // getters & setters 
-    
-    
     public int getId() {
         return id;
     }
@@ -63,11 +62,10 @@ public class Food {
         this.id = id;
     }
 
-    
     public int getDeadLineInCurrentPeriod() {
         return this.deadLineInCurrentPeriod;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -138,8 +136,7 @@ public class Food {
     public int getwatingTime() {
         return this.watingTime;
     }
-    
-    
+
     public int getPriority() {
         return priority;
     }
@@ -147,6 +144,5 @@ public class Food {
     public void setPriority(int priority) {
         this.priority = priority;
     }
-    
 
 }
