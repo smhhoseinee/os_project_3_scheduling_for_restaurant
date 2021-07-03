@@ -1,0 +1,37 @@
+0 Food2
+1 Food2
+2 Food1
+3 Food3
+4 Food3
+5 Food2
+6 Food2
+7 Food1
+Food3 deadline missed
+8 Food3
+9 Food3
+10 Food2
+11 Food2
+12 Food1
+13 Food3
+14 Food3
+15 Food2
+16 Food2
+17 Food3
+Food3 deadline missed
+18 Food1
+19 Food3
+20 Food2
+21 Food2
+22 Food3
+23 Food3
+24 Food1
+25 Food2
+26 Food2
+27 Food3
+Food3 deadline missed
+28 Food3
+29 Idle
+Idle time = 1
+Food1 waiting time = 3 
+Food2 waiting time = 0
+Food3 waiting time = 17

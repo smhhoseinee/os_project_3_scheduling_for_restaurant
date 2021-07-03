@@ -1,22 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package os_project_3_scheduling;
 
-/**
- *
- * @author No1
- */
 public class Food {
 
     private String name;
     private int burst, deadline, period;
     private int utilization;
     boolean isCompleted = false;
+    private int remainTime;
+    private int currentState;
+    private int watingTime;
+    private int countPeriod;
+    private int sw=1;
 
     public Food(String name, int burst, int deadline, int period) {
+        this.name = name;
         this.burst = burst;
         this.deadline = deadline;
         this.period = period;
@@ -24,6 +21,25 @@ public class Food {
         utilization = 1000 * this.burst / this.period;
 
         System.out.println("utilization = " + utilization);
+        this.remainTime = this.burst;
+        this.currentState = 1;
+        this.watingTime = 0;
+        this.countPeriod = 0;
+    }
+
+    public void setState(int time) {
+        if (this.remainTime == 0) {
+            if (time % this.period == 0) {
+                sw=1;
+                this.currentState = 1;
+                this.remainTime = this.burst;
+            } else if (sw==1){
+                sw=0;
+                this.currentState = 0;
+                this.countPeriod++;
+                this.watingTime += ((time-1)%this.period) + 1 - this.burst;
+            }
+        }
     }
 
     public String getName() {
@@ -73,7 +89,25 @@ public class Food {
     public void setUtilization(int utilization) {
         this.utilization = utilization;
     }
-    
-    
+
+    public void setRemainTime(int remainTime) {
+        this.remainTime = remainTime;
+    }
+
+    public int getRemainTime() {
+        return this.remainTime;
+    }
+
+    public void setCurrentState(int currentState) {
+        this.currentState = currentState;
+    }
+
+    public int getCurrentState() {
+        return this.currentState;
+    }
+
+    public int getwatingTime() {
+        return this.watingTime;
+    }
 
 }
