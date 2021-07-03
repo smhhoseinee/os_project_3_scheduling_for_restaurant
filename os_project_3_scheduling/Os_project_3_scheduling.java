@@ -1,8 +1,8 @@
 /*
 3
-Food1 2 2 8
-Food2 1 3 4
-Food3 3 6 8
+Food1 1 5 6
+Food2 2 4 5
+Food3 4 8 10
  */
 package os_project_3_scheduling;
 
@@ -29,9 +29,9 @@ public class Os_project_3_scheduling {
         int EDFood = -1;
         int ED = 10000;
         for (int i = 0; i < foodNumber; i++) {
-            if (food[i].getDeadline() < ED && food[i].getCurrentState() == 1) {
+            if (food[i].getDeadLineInCurrentPeriod() < ED && food[i].getCurrentState() == 1) {
                 EDFood = i;
-                ED = food[i].getDeadline();
+                ED = food[i].getDeadLineInCurrentPeriod();
             }
         }
         return EDFood;

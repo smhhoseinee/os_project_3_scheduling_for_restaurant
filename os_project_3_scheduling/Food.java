@@ -11,6 +11,7 @@ public class Food {
     private int watingTime;
     private int countPeriod;
     private int sw=1;
+    private int deadLineInCurrentPeriod;
 
     public Food(String name, int burst, int deadline, int period) {
         this.name = name;
@@ -25,11 +26,13 @@ public class Food {
         this.currentState = 1;
         this.watingTime = 0;
         this.countPeriod = 0;
+        this.deadLineInCurrentPeriod = this.deadline;
     }
 
     public void setState(int time) {
         if (this.remainTime == 0) {
             if (time % this.period == 0) {
+                this.deadLineInCurrentPeriod = time + this.deadline;
                 sw=1;
                 this.currentState = 1;
                 this.remainTime = this.burst;
@@ -41,7 +44,11 @@ public class Food {
             }
         }
     }
-
+    
+    public int getDeadLineInCurrentPeriod() {
+        return this.deadLineInCurrentPeriod;
+    }
+    
     public String getName() {
         return name;
     }
