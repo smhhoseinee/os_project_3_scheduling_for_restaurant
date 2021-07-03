@@ -6,7 +6,12 @@ public class Food {
     private int burst, deadline, period;
     private int utilization;
     boolean isCompleted = false;
-    private int remainTime;
+    private int priority = -1;
+    private int id ;
+
+    
+    
+    private int remainedTime;
     private int currentState;
     private int watingTime;
     private int countPeriod;
@@ -22,7 +27,7 @@ public class Food {
         utilization = 1000 * this.burst / this.period;
 
         System.out.println("utilization = " + utilization);
-        this.remainTime = this.burst;
+        this.remainedTime = this.burst;
         this.currentState = 1;
         this.watingTime = 0;
         this.countPeriod = 0;
@@ -30,12 +35,14 @@ public class Food {
     }
 
     public void setState(int time) {
-        if (this.remainTime == 0) {
+        if (this.remainedTime == 0) {
             if (time % this.period == 0) {
                 this.deadLineInCurrentPeriod = time + this.deadline;
                 sw=1;
                 this.currentState = 1;
-                this.remainTime = this.burst;
+                this.remainedTime = this.burst;
+                
+                setIsCompleted(false);
             } else if (sw==1){
                 sw=0;
                 this.currentState = 0;
@@ -44,6 +51,18 @@ public class Food {
             }
         }
     }
+    
+    // getters & setters 
+    
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     
     public int getDeadLineInCurrentPeriod() {
         return this.deadLineInCurrentPeriod;
@@ -97,12 +116,15 @@ public class Food {
         this.utilization = utilization;
     }
 
-    public void setRemainTime(int remainTime) {
-        this.remainTime = remainTime;
+    public void setRemainTime(int remainedTime) {
+        if (remainedTime == 0) {
+            this.setIsCompleted(true);
+        }
+        this.remainedTime = remainedTime;
     }
 
     public int getRemainTime() {
-        return this.remainTime;
+        return this.remainedTime;
     }
 
     public void setCurrentState(int currentState) {
@@ -116,5 +138,15 @@ public class Food {
     public int getwatingTime() {
         return this.watingTime;
     }
+    
+    
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+    
 
 }
